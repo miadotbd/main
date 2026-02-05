@@ -1,2 +1,138 @@
-Welcome To Mia.BD
-Website Lunching Tomorrow
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mia.bd – Digital Identity for Every Mia Family</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Custom Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bdgreen: '#006a4e',
+                        bdred: '#f42a41'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-bdgreen to-black text-white flex items-center justify-center">
+
+    <div class="max-w-4xl w-full text-center px-6" data-aos="fade-up">
+
+        <!-- Logo / Title -->
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            <span class="text-bdred">Mia</span>.bd
+        </h1>
+
+        <p class="text-xl md:text-2xl font-semibold mb-2">
+            Digital Identity for Every Mia Family
+        </p>
+
+        <p class="text-md opacity-90 mb-8">
+            Free Subdomain Website Service
+        </p>
+
+        <!-- Launching Soon -->
+        <div class="bg-white/10 rounded-2xl p-6 mb-10" data-aos="zoom-in">
+            <h2 class="text-2xl font-bold mb-4 text-bdred">
+                🚀 Launching Soon
+            </h2>
+
+            <!-- Countdown -->
+            <div class="grid grid-cols-4 gap-4 text-center">
+                <div>
+                    <div id="days" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
+                    <span class="text-sm">Days</span>
+                </div>
+                <div>
+                    <div id="hours" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
+                    <span class="text-sm">Hours</span>
+                </div>
+                <div>
+                    <div id="minutes" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
+                    <span class="text-sm">Minutes</span>
+                </div>
+                <div>
+                    <div id="seconds" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
+                    <span class="text-sm">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info -->
+        <div class="space-y-3 text-sm md:text-base" data-aos="fade-up" data-aos-delay="200">
+            <p>
+                🌐 Website:
+                <a href="https://mia.bd" class="text-bdred underline">mia.bd</a>
+            </p>
+            <p>
+                📧 Support:
+                <a href="mailto:info@mia.bd" class="text-bdred underline">info@mia.bd</a>
+            </p>
+        </div>
+
+        <!-- Social / Footer -->
+        <div class="mt-8 flex justify-center space-x-6 text-xl" data-aos="fade-up" data-aos-delay="300">
+            <i class="fa-solid fa-globe hover:text-bdred transition"></i>
+            <i class="fa-solid fa-envelope hover:text-bdred transition"></i>
+            <i class="fa-brands fa-facebook hover:text-bdred transition"></i>
+        </div>
+
+        <p class="mt-6 text-xs opacity-70">
+            © 2026 Mia.bd — All Rights Reserved
+        </p>
+
+    </div>
+
+    <!-- Countdown Script -->
+    <script>
+        function updateCountdown() {
+            const launchDate = new Date("February 14, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) return;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            $("#days").text(days);
+            $("#hours").text(hours);
+            $("#minutes").text(minutes);
+            $("#seconds").text(seconds);
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+    <!-- AOS Init -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+</body>
+</html>
