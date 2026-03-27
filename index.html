@@ -396,6 +396,147 @@
   
   
   
+
+
+
+
+
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- SolaimanLipi Font -->
+  <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+
+
+<!-- Unified Compact Name Check Section -->
+<section class="py-4" id="name-check">
+  <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+
+
+<div class="text-center mb-4">
+  <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-3">আপনার নাম উপলব্ধ আছে কি না চেক করুন</h2>
+  <p class="text-lg text-gray-700">পছন্দের নামটি টাইপ করে চেক করুন</p>
+</div>
+
+    <!-- Unified Single Input Bar -->
+    <div class="max-w-xl mx-auto">
+      <div class="flex items-center bg-white border border-green-800 rounded-[15px] overflow-hidden shadow-sm focus-within:border-red-700 transition-all duration-300">
+
+        <!-- Name Input -->
+        <div class="flex-1">
+          <input type="text" id="subdomain" 
+                 class="w-full bg-transparent border-0 px-3 py-1 text-base md:text-lg outline-none placeholder:text-gray-400 text-gray-800"
+                 placeholder="arman" maxlength="30" autocomplete="off">
+        </div>
+
+        <!-- Fixed Domain -->
+        <div class="flex-shrink-0 px-2 py-0 text-base md:text-lg font-medium text-gray-700 border-l border-gray-200">
+          .mia.bd
+        </div>
+
+<!-- Submit Button -->
+<button id="checkBtn"
+        class="flex-shrink-0 bg-green-800 hover:bg-green-900 text-white h-14 w-20 md:h-16 md:w-16 flex items-center justify-center transition-all duration-300 rounded-r-[15px]">
+  <i class="fas fa-search text-xl"></i>
+</button>
+
+      </div>
+    </div>
+
+    <!-- Result Area -->
+    <div id="result" class="mt-8 max-w-xl mx-auto min-h-[90px]"></div>
+
+
+  </div>
+</section>
+
+  <script>
+    AOS.init({ once: true, duration: 800 });
+
+    $(document).ready(function() {
+      $('#checkBtn').on('click', function() {
+        const name = $('#subdomain').val().trim().toLowerCase();
+        
+        if (!name || name.length < 2) {
+          showMessage('error', 'অনুগ্রহ করে একটি বৈধ নাম লিখুন (কমপক্ষে ২ অক্ষর)');
+          return;
+        }
+
+        // Disable button
+        $('#checkBtn').html('<i class="fas fa-spinner fa-spin"></i>').prop('disabled', true);
+
+        $.ajax({
+          url: 'https://app.mia.bd/namecheck.php',
+          type: 'POST',
+          data: { subdomain: name },
+          dataType: 'json',
+          success: function(response) {
+            if (response.status === 'available') {
+              $('#result').html(`
+                <div class="bg-green-100 border border-green-800 rounded-2xl p-8 text-center" data-aos="zoom-in">
+                  <i class="fas fa-check-circle text-7xl text-green-600 mb-4"></i>
+                  <h3 class="text-3xl font-bold text-green-800">${name}.mia.bd</h3>
+                  <p class="text-2xl text-green-700 mt-2">উপলব্ধ আছে!</p>
+                  <button onclick="claimName('${name}')" 
+                          class="mt-8 bg-green-800 hover:bg-green-900 text-white px-12 py-5 rounded-2xl text-xl font-semibold transition-all">
+                    এখনই ক্লেইম করুন
+                  </button>
+                </div>
+              `);
+            } 
+            else if (response.status === 'taken') {
+              $('#result').html(`
+                <div class="bg-red-100 border border-red-700 rounded-2xl p-8 text-center" data-aos="zoom-in">
+                  <i class="fas fa-times-circle text-7xl text-red-700 mb-4"></i>
+                  <h3 class="text-3xl font-bold text-red-800">${name}.mia.bd</h3>
+                  <p class="text-2xl text-red-700 mt-2">দুঃখিত, এই নামটি ইতিমধ্যে নেওয়া হয়েছে</p>
+                </div>
+              `);
+            } 
+            else {
+              showMessage('error', response.message || 'কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+            }
+          },
+          error: function() {
+            showMessage('error', 'সার্ভারে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।');
+          },
+          complete: function() {
+            $('#checkBtn').html('<i class="fas fa-search"></i>').prop('disabled', false);
+          }
+        });
+      });
+
+      function showMessage(type, msg) {
+        const color = type === 'error' ? 'red' : 'green';
+        $('#result').html(`
+          <div class="bg-${color}-100 border border-${color}-700 rounded-2xl p-8 text-center">
+            <p class="text-xl text-${color}-800">${msg}</p>
+          </div>
+        `);
+      }
+    });
+
+    function claimName(name) {
+      alert(name + '.mia.bd ক্লেইম করার প্রক্রিয়া শুরু হচ্ছে... (আপনি পরবর্তীতে এখানে ফর্ম দেখাতে পারবেন)');
+      // Redirect or open registration form
+      // window.location.href = `register.php?name=${name}`;
+    }
+  </script>
+
+
   
   
   
@@ -1448,102 +1589,7 @@
                 }, 300);
             }
 
-            // Hosting type change handler
-            $('#hostingType').on('change', function() {
-                const hostingType = $(this).val();
-                const customDetails = $('#customHostingDetails');
-                const hostingTarget = $('#hostingTarget');
-                
-                if (hostingType === 'custom') {
-                    customDetails.show();
-                    hostingTarget.attr('placeholder', '123.456.789.0 or yourdomain.com');
-                    hostingTarget.prev('label').text('Your Server IP or CNAME');
-                } else if (hostingType === 'blogger') {
-                    customDetails.show();
-                    hostingTarget.attr('placeholder', 'ghs.google.com');
-                    hostingTarget.prev('label').text('Blogger CNAME (usually ghs.google.com)');
-                    hostingTarget.val('ghs.google.com');
-                } else {
-                    customDetails.hide();
-                }
-            });
-
-
-
-
-
-// Subdomain form submission
-let whatsappFormData = null;
-
-$('#subdomainForm').on('submit', function (e) {
-    e.preventDefault();
-
-    const subdomainName = $('#subdomainName').val().toLowerCase().trim();
-    const userEmail = $('#userEmail').val();
-    const hostingType = $('#hostingType').val();
-    const hostingTarget = $('#hostingTarget').val() || 'github page';
-    
-
-    // Validate subdomain name
-    if (!/^[a-z0-9-]+$/.test(subdomainName)) {
-        alert('Subdomain name can only contain letters, numbers, and hyphens.');
-        return;
-    }
-
-    if (subdomainName.length < 3) {
-        alert('Subdomain name must be at least 3 characters long.');
-        return;
-    }
-
-    const formData = {
-        subdomain: subdomainName,
-        email: userEmail,
-        hosting_type: hostingType,
-        hosting_target: hostingTarget,
-        full_domain: subdomainName + '.mia.bd'
-    };
-
-    // Save data for WhatsApp button
-    whatsappFormData = formData;
-
-    // Show loading state
-    const submitBtn = $(this).find('button[type="submit"]');
-    const originalText = submitBtn.html();
-    submitBtn.html('<i class="fas fa-spinner fa-spin mr-2"></i>Creating Subdomain...');
-    submitBtn.prop('disabled', true);
-
-    // Simulate Ajax call
-    setTimeout(function () {
-        openModal();
-        $('#subdomainForm')[0].reset();
-        $('#customHostingDetails').hide();
-        submitBtn.html(originalText);
-        submitBtn.prop('disabled', false);
-
-        console.log('Subdomain created:', formData);
-    }, 2000);
-});
-
-// WhatsApp Help button click
-$(document).on('click', '#closeModal', function () {
-    if (!whatsappFormData) {
-        alert('No submission data found.');
-        return;
-    }
-
-    const message = `As-salamu Alaykum – New Subdomain Request
-
-Subdomain: ${whatsappFormData.full_domain}
-Email: ${whatsappFormData.email}
-Hosting Type: ${whatsappFormData.hosting_type}
-Hosting Target: ${whatsappFormData.hosting_target}
-    `.trim();
-
-    const whatsappNumber = '8801974946747';
-    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-    window.open(whatsappURL, '_blank');
-});
+            
 
 
 
@@ -1586,11 +1632,7 @@ Hosting Target: ${whatsappFormData.hosting_target}
                 }
             });
 
-            // Real-time subdomain preview
-            $('#subdomainName').on('input', function() {
-                let value = $(this).val().toLowerCase().replace(/[^a-z0-9-]/g, '');
-                $(this).val(value);
-            });
+            
 
             // Add hover effects to cards
             $('.hover-lift').on('mouseenter', function() {
@@ -1599,13 +1641,8 @@ Hosting Target: ${whatsappFormData.hosting_target}
                 $(this).removeClass('shadow-2xl');
             });
 
-            // Initialize with custom hosting details hidden
-            $('#customHostingDetails').hide();
-
-            // Console log for demo
-            console.log('mia.bd subdomain system loaded successfully!');
-            console.log('Features: Free subdomains, instant activation, any hosting support');
-        });
+            
+  });
     </script>
 </body>
 </html>
