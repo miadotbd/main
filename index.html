@@ -529,17 +529,21 @@
       }
     });
 
-    function claimName(name) {
-    // Claim Button Click → POST Request to cart.php
-function claimName(name) {
+
+  // ... আপনার আগের সব কোড (AOS, jQuery, checkBtn logic) একই থাকবে ...
+
+  // ==================== UPDATED claimName FUNCTION ====================
+  function claimName(name) {
     const fullDomain = name + ".mia.bd";
 
-    // Loading indicator (optional but recommended)
-    const claimBtn = document.querySelector(`button[onclick="claimName('${name}')"]`);
-    if (claimBtn) {
-        claimBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> প্রক্রিয়া চলছে...`;
-        claimBtn.disabled = true;
-    }
+    // Loading state
+    const buttons = document.querySelectorAll('button[onclick^="claimName"]');
+    buttons.forEach(btn => {
+      if (btn.textContent.includes('ক্লেইম') || btn.innerHTML.includes('ক্লেইম')) {
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> প্রক্রিয়া চলছে...`;
+        btn.disabled = true;
+      }
+    });
 
     // POST Request using fetch
     fetch('https://app.mia.bd/cart.php', {
@@ -550,15 +554,14 @@ function claimName(name) {
         body: `name=${encodeURIComponent(fullDomain)}`
     })
     .then(response => {
-        // যদি cart.php থেকে redirect করে, তাহলে সেটা স্বয়ংক্রিয়ভাবে হবে
+        // যদি সার্ভার থেকে redirect হয়
         if (response.redirected) {
             window.location.href = response.url;
-        } else {
-            return response.text();
+            return;
         }
+        return response.text();
     })
     .then(data => {
-        // যদি redirect না হয় এবং কোনো HTML/টেক্সট আসে
         if (data) {
             document.open();
             document.write(data);
@@ -568,14 +571,15 @@ function claimName(name) {
     .catch(error => {
         console.error('Error:', error);
         alert('কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।');
-        
-        // Reset button if needed
-        if (claimBtn) {
-            claimBtn.innerHTML = 'এখনই ক্লেইম করুন';
-            claimBtn.disabled = false;
-        }
+
+        // Reset button
+        buttons.forEach(btn => {
+          btn.innerHTML = 'এখনই ক্লেইম করুন';
+          btn.disabled = false;
+        });
     });
-}
+  }
+
   </script>
 
 
