@@ -530,30 +530,52 @@
     });
 
     function claimName(name) {
-    alert(name + '.mia.bd ক্লেইম করার প্রক্রিয়া শুরু হচ্ছে... (আপনি পরবর্তীতে এখানে ফর্ম দেখাতে পারবেন)');
-    const fullDomain = name + '.mia.bd';
-    
-    // সুন্দর লোডিং মেসেজ
-    if (confirm(fullDomain + ' ক্লেইম করতে চান?')) {
-      
-      // POST Request তৈরি
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://app.mia.bd/cart.php';
-      form.style.display = 'none';
+    // Claim Button Click → POST Request to cart.php
+function claimName(name) {
+    const fullDomain = name + ".mia.bd";
 
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'name';
-      input.value = fullDomain;
-
-      form.appendChild(input);
-      document.body.appendChild(form);
-
-      // সাবমিট করা
-      form.submit();
+    // Loading indicator (optional but recommended)
+    const claimBtn = document.querySelector(`button[onclick="claimName('${name}')"]`);
+    if (claimBtn) {
+        claimBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> প্রক্রিয়া চলছে...`;
+        claimBtn.disabled = true;
     }
-  }
+
+    // POST Request using fetch
+    fetch('https://app.mia.bd/cart.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `name=${encodeURIComponent(fullDomain)}`
+    })
+    .then(response => {
+        // যদি cart.php থেকে redirect করে, তাহলে সেটা স্বয়ংক্রিয়ভাবে হবে
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            return response.text();
+        }
+    })
+    .then(data => {
+        // যদি redirect না হয় এবং কোনো HTML/টেক্সট আসে
+        if (data) {
+            document.open();
+            document.write(data);
+            document.close();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+        
+        // Reset button if needed
+        if (claimBtn) {
+            claimBtn.innerHTML = 'এখনই ক্লেইম করুন';
+            claimBtn.disabled = false;
+        }
+    });
+}
   </script>
 
 
