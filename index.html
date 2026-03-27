@@ -530,60 +530,41 @@
     });
 
 
-  // ... আপনার আগের সব কোড (AOS, jQuery, checkBtn logic) একই থাকবে ...
 
-  // ==================== UPDATED claimName FUNCTION ====================
-  function claimName(name) {
-    const fullDomain = name + ".mia.bd";
-
-    // Loading state
-    const buttons = document.querySelectorAll('button[onclick^="claimName"]');
-    buttons.forEach(btn => {
-      if (btn.textContent.includes('ক্লেইম') || btn.innerHTML.includes('ক্লেইম')) {
-        btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> প্রক্রিয়া চলছে...`;
-        btn.disabled = true;
-      }
-    });
-
-    // POST Request using fetch
-    fetch('https://app.mia.bd/cart.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `name=${encodeURIComponent(fullDomain)}`
-    })
-    .then(response => {
-        // যদি সার্ভার থেকে redirect হয়
-        if (response.redirected) {
-            window.location.href = response.url;
-            return;
-        }
-        return response.text();
-    })
-    .then(data => {
-        if (data) {
-            document.open();
-            document.write(data);
-            document.close();
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।');
-
-        // Reset button
-        buttons.forEach(btn => {
-          btn.innerHTML = 'এখনই ক্লেইম করুন';
-          btn.disabled = false;
-        });
-    });
-  }
 
   </script>
 
 
-  
+  <script>
+  // ==================== FIXED claimName FUNCTION ====================
+  function claimName(name) {
+    const fullDomain = name + ".mia.bd";
+
+    // Loading state দেখানো
+    const claimBtn = document.querySelector('button[onclick^="claimName"]');
+    if (claimBtn) {
+      claimBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> প্রক্রিয়া চলছে...`;
+      claimBtn.disabled = true;
+    }
+
+    // Hidden Form দিয়ে POST রিকোয়েস্ট
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://app.mia.bd/cart.php';
+    form.style.display = 'none';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'name';
+    input.value = fullDomain;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+
+    // সরাসরি সাবমিট (cart.php বাকি সব হ্যান্ডেল করবে)
+    form.submit();
+  }
+</script>
   
   
   <!-- বৈশিষ্ট্য সেকশন -->
