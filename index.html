@@ -1,138 +1,1541 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mia.bd – Digital Identity for Every Mia Family</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+  <!-- SolaimanLipi Bangla Font -->
+  <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
 
-    <!-- Tailwind Custom Colors -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-S..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+    
+    <!-- Custom Styles -->
+    <style>
+    
+    .primary-gradient {
+    background: linear-gradient(
+        135deg,
+        #22c55e 0%,   /* light green */
+        #16a34a 50%,  /* medium green */
+        #15803d 100%  /* dark green */
+    );
+}
+
+    
+        
+        .success-gradient {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        }
+        
+        .purple-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            border-right: 3px solid #3b82f6;
+            white-space: nowrap;
+            animation: typing 3s steps(30, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #3b82f6; }
+        }
+    </style>
+    
+      <style>
+    /* SolaimanLipi for all visible text */
+    body, h1, h2, h3, p, a, button {
+      font-family: 'SolaimanLipi', 'Noto Sans Bengali', sans-serif;
+    }
+
+    /* Floating animation for smart card */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(3deg); }
+      50%      { transform: translateY(-18px) rotate(-3deg); }
+    }
+    .animate-float {
+      animation: float 7s ease-in-out infinite;
+    }
+
+    /* Red glow pulse for card */
+    @keyframes glow-red {
+      0%, 100% { box-shadow: 0 0 12px rgba(185, 28, 28, 0.35); }
+      50%      { box-shadow: 0 0 28px rgba(185, 28, 28, 0.65), 0 0 50px rgba(185, 28, 28, 0.4); }
+    }
+    .glow-red-pulse {
+      animation: glow-red 5s ease-in-out infinite;
+    }
+
+
+    /* Button pulse on load (primary CTA) */
+    @keyframes pulse-load {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.04); }
+    }
+    .animate-pulse-once {
+      animation: pulse-load 2.5s ease-in-out;
+    }
+
+    /* Headline text reveal animation */
+    .animate-text-reveal {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: textReveal 1.2s forwards;
+    }
+    @keyframes textReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
                     colors: {
-                        bdgreen: '#006a4e',
-                        bdred: '#f42a41'
+                        'primary': 'green',
+                        'primary-dark': 'red',
+                        'primary-light': 'block'
                     }
                 }
             }
         }
     </script>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- AOS Animation -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+<body class="font-sans overflow-x-hidden bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-green-100 shadow-lg" data-aos="fade-down">
+        <div class="container mx-auto px-3 py-2">
+            <div class="flex justify-between items-center">
+                <div class="text-primary text-2xl font-bold flex items-center">
+                    <i class="fas fa-globe mr-3 text-3xl"></i>
+                    MIA.BD
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-primary transition-colors duration-300 font-medium">
+                        <i class="fas fa-home mr-2"></i> Home
+                    </a>
+                    <a href="#features" class="text-gray-700 hover:text-primary transition-colors duration-300 font-medium">
+                        <i class="fas fa-star mr-2"></i> Features
+                    </a>
+                    <a href="#pricing" class="text-gray-700 hover:text-primary transition-colors duration-300 font-medium">
+                        <i class="fas fa-tags mr-2"></i> Pricing
+                    </a>
+                    <a href="#order" class="text-gray-700 hover:text-primary transition-colors duration-300 font-medium">
+                        <i class="fas fa-shopping-cart mr-2"></i> Order
+                    </a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors duration-300 font-medium">
+                        <i class="fas fa-envelope mr-2"></i> Contact
+                    </a>
+                </div>
+                <button class="primary-gradient text-white px-4 py-2 rounded-full font-semibold hover-lift pulse-glow" id="getStartedBtn">
+            ওয়েবসাইট নিন
+                </button>
+            </div>
+        </div>
+    </nav>
 
-<body class="min-h-screen bg-gradient-to-br from-bdgreen to-black text-white flex items-center justify-center">
+  
+  
+  
+    <!-- Hero Section -->
+  <section class="relative  min-h-screen  flex items-center bg-gradient-to-br from-green-900 via-green-800 to-green-950 text-white overflow-hidden pt-20 pb-28">
 
-    <div class="max-w-4xl w-full text-center px-6" data-aos="fade-up">
 
-        <!-- Logo / Title -->
-        <h1 class="text-4xl md:text-6xl font-bold mb-4">
-            <span class="text-bdred">Mia</span>.bd
-        </h1>
+    <div class="container mx-auto px-6 py-4 md:py-24 relative z-10">
 
-        <p class="text-xl md:text-2xl font-semibold mb-2">
-            Digital Identity for Every Mia Family
-        </p>
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        <p class="text-md opacity-90 mb-8">
-            Free Subdomain Website Service
-        </p>
+        <!-- Left: Text content -->
+        <div>
 
-        <!-- Launching Soon -->
-        <div class="bg-white/10 rounded-2xl p-6 mb-10" data-aos="zoom-in">
-            <h2 class="text-2xl font-bold mb-4 text-bdred">
-                🚀 Launching Soon
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+    data-aos="fade-up"
+    data-aos-duration="1200">
+
+    <span class="animate-text-reveal inline">
+        আপনার স্মার্ট প্রোফাইল কার্ড,
+    </span><span
+        class="text-red-400 animate-text-reveal delay-400 inline"
+        style="animation-delay: 0.6s;">
+        NAME.mia.bd
+    </span>
+        <span class="animate-text-reveal inline">
+        ওয়েবসাইট নিন ফ্রী 
+    </span>
+
+</h1>
+
+
+          <p class="text-xl md:text-2xl text-white mb-3" data-aos="fade-right" data-aos-delay="800">
+            এক কার্ডেই পান NFC, QR ও ওয়েবসাইট
+          </p>
+          <p class="text-lg md:text-xl text-green-100 mb-10 underline underline-offset-4 decoration-red-600/100 decoration-3" data-aos="fade-right" data-aos-delay="1000">
+            সহজ • স্মার্ট • প্রিমিয়াম • লাইফটাইম 
+         ফ্রী </p>
+
+          <!-- Updated CTA Buttons with new design & animation -->
+          <div class="flex flex-col sm:flex-row gap-6 mb-12">
+            <a href="#শুরু-করুন" 
+               class="group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-green-800 to-green-700 hover:from-green-700 hover:to-red-700 text-white text-xl font-semibold px-10 py-5 rounded-full shadow-xl transition-all duration-400 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-green-600/50 animate-pulse-once">
+              <i class="fas fa-rocket text-2xl group-hover:animate-bounce"></i>
+              আমার স্মার্ট কার্ড নিন
+            </a>
+
+            <a href="#জানুন-কীভাবে" 
+               class="group inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 backdrop-blur-lg text-white border-2 border-red-500/60 hover:border-red-400 text-xl font-medium px-10 py-5 rounded-full transition-all duration-400 transform hover:scale-105 hover:shadow-lg focus:outline-none">
+              <i class="fas fa-info-circle text-xl group-hover:rotate-12 transition-transform"></i>
+              আরও জানুন
+            </a>
+          </div>
+
+          <!-- Benefits -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+            <div data-aos="zoom-in-up" data-aos-delay="200">
+              <i class="fas fa-id-card text-5xl text-red-400 mb-4"></i>
+              <p class="text-white text-lg font-semibold">স্মার্ট প্রোফাইল কার্ড</p>
+            </div>
+            <div data-aos="zoom-in-up" data-aos-delay="300">
+              <i class="fas fa-globe text-5xl text-red-400 mb-4"></i>
+              <p class="text-white text-lg font-semibold">নিজস্ব ওয়েবসাইট</p>
+            </div>
+            <div data-aos="zoom-in-up" data-aos-delay="400">
+              <i class="fas fa-bolt text-5xl text-red-400 mb-4"></i>
+              <p class="text-white text-lg font-semibold">সহজ ব্যবহার</p>
+            </div>
+            <div data-aos="zoom-in-up" data-aos-delay="500">
+              <i class="fas fa-wallet text-5xl text-red-400 mb-4"></i>
+              <p class="text-white text-lg font-semibold">সাশ্রয়ী সেবা</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Visuals -->
+        <div class="relative" data-aos="fade-left" data-aos-duration="1300">
+
+          <div class="relative mx-auto max-w-md lg:max-w-lg">
+
+            <!-- Phone mockup -->
+            <div class="relative z-20 transform -rotate-3 hover:rotate-0 transition-transform duration-700">
+              <div class="overflow-hidden rounded-3xl shadow-2xl border-8 border-white/25 bg-white">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" 
+                     alt="Mia.bd ওয়েবসাইট উদাহরণ" 
+                     class="w-full h-auto">
+              </div>
+              <div class="absolute bottom-6 left-6 bg-black/70 backdrop-blur-md px-5 py-2 rounded-lg text-white font-bold text-lg shadow-lg">
+                rahim.mia.bd
+              </div>
+            </div>
+
+            <!-- Smart Card -->
+            <div class="absolute -bottom-28 md:-bottom-40 right-0 md:-right-20 w-72 md:w-80 z-30 animate-float">
+              <div class="bg-gradient-to-br from-gray-900 via-green-950 to-black rounded-2xl p-6 shadow-2xl glow-red-pulse border border-red-700/50 overflow-hidden">
+                <div class="text-center">
+                  <h3 class="text-3xl font-bold text-white">Arman Mia</h3>
+                  <p class="text-red-400 font-medium text-lg mt-2">Freelancer ( Web Specialist )</p>
+                  <div class="mt-5 text-base text-gray-200 space-y-2">
+                    <p>01974946747</p>
+                    <p>arman.mia.bd</p>
+                  </div>
+                  <div class="mt-6 flex justify-center gap-6 text-red-400 text-2xl">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-whatsapp"></i>
+                    <i class="fas fa-link"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  
+  
+  
+  <!-- বৈশিষ্ট্য সেকশন -->
+<section id="features" class="py-20 bg-white font-[SolaimanLipi]">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                
+                কেন বেছে নেবেন Mia.bd?
             </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                আপনার নামে স্মার্ট প্রোফাইল কার্ড এবং ব্যক্তিগত ওয়েবসাইট — সহজ, আধুনিক ও সবার জন্য।
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- ফ্রি সুবিধা -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-gift text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">সম্পূর্ণ ফ্রি</h3>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    আপনার Mia.bd ওয়েবসাইট ও সাবডোমেইন সম্পূর্ণ ফ্রি, কোনো লুকানো চার্জ নেই।
+                </p>
+                <ul class="text-gray-600 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> কোনো সেটআপ ফি নেই</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> কোনো মাসিক চার্জ নেই</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> কোনো লুকানো খরচ নেই</li>
+                </ul>
+            </div>
+            
+            <!-- দ্রুত সক্রিয় -->
+            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-gradient-to-r from-red-700 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-bolt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">তাৎক্ষণিক সক্রিয়</h3>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    আপনার ওয়েবসাইট ও সাবডোমেইন সাথে সাথে সক্রিয় হবে — কোনো অপেক্ষা নেই।
+                </p>
+                <ul class="text-gray-600 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> সাথে সাথে তৈরি</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> স্বয়ংক্রিয় সেটআপ</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> ব্যবহার উপযোগী</li>
+                </ul>
+            </div>
+            
+            <!-- সহজ ব্যবস্থাপনা -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-cogs text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">সহজ ব্যবস্থাপনা</h3>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    সহজ অর্ডার প্রক্রিয়া, স্বয়ংক্রিয় আপডেট এবং ব্যবহারবান্ধব ড্যাশবোর্ড।
+                </p>
+                <ul class="text-gray-600 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> সহজ অর্ডার</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> স্বয়ংক্রিয় আপডেট</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> ব্যবহারবান্ধব ড্যাশবোর্ড</li>
+                </ul>
+            </div>
+            
+            <!-- নিরাপদ ও নির্ভরযোগ্য -->
+            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-gradient-to-r from-red-700 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-shield-alt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">নিরাপদ ও নির্ভরযোগ্য</h3>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    সর্বোচ্চ নিরাপত্তা ও নির্ভরযোগ্য সেবা, 99.9% আপটাইম নিশ্চিত।
+                </p>
+                <ul class="text-gray-600 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> 99.9% আপটাইম</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> নিরাপদ সিস্টেম</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> পেশাদার সাপোর্ট</li>
+                </ul>
+            </div>
+            
+            <!-- সবার জন্য -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="500">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">সবার জন্য</h3>
+                <p class="text-gray-600 leading-relaxed mb-6">
+                    নতুন ব্যবহারকারী থেকে শুরু করে ডেভেলপার — সবার জন্য সহজ ও উপযোগী।
+                </p>
+                <ul class="text-gray-600 space-y-2">
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> নতুনদের জন্য সহজ</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> ডেভেলপারদের জন্য প্রস্তুত</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i> কোনো টেকনিক্যাল জ্ঞান প্রয়োজন নেই</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <!-- Countdown -->
-            <div class="grid grid-cols-4 gap-4 text-center">
-                <div>
-                    <div id="days" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
-                    <span class="text-sm">Days</span>
+
+
+  
+
+
+<!-- কিভাবে কাজ করে সেকশন -->
+<section class="py-20 bg-gray-100 font-[SolaimanLipi]">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+            
+                কিভাবে কাজ করে
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                মাত্র ৩টি সহজ ধাপে আপনার স্মার্ট প্রোফাইল কার্ড ও ওয়েবসাইট পান
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- ধাপ ১ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">১</span>
                 </div>
-                <div>
-                    <div id="hours" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
-                    <span class="text-sm">Hours</span>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">আপনার নাম নির্বাচন করুন</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    আপনার নামের সাথে Mia.bd যোগ করুন এবং নিজের ওয়েবসাইট ঠিকানা তৈরি করুন।
+                </p>
+            </div>
+            
+            <!-- ধাপ ২ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-gradient-to-r from-red-700 to-red-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">২</span>
                 </div>
-                <div>
-                    <div id="minutes" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
-                    <span class="text-sm">Minutes</span>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">তাৎক্ষণিক সক্রিয়</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    আপনার ওয়েবসাইট সাথে সাথেই সক্রিয় হবে — কোনো অপেক্ষা নেই, কোনো ঝামেলা নেই।
+                </p>
+            </div>
+            
+            <!-- ধাপ ৩ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl font-bold text-white">৩</span>
                 </div>
-                <div>
-                    <div id="seconds" class="text-3xl md:text-4xl font-bold text-bdgreen">00</div>
-                    <span class="text-sm">Seconds</span>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">সংযুক্ত করুন ও চালু করুন</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    আপনার স্মার্ট প্রোফাইল কার্ডের সাথে ওয়েবসাইট যুক্ত করুন এবং সাথে সাথে অনলাইনে চালু করুন।
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+<!-- প্রাইসিং সেকশন -->
+<section id="pricing" class="py-20 bg-white font-[SolaimanLipi]">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                
+            লাইফ টাইম ও বাৎসরিক প্রাইসিং 
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                আপনার স্মার্ট প্রোফাইল কার্ড ও ওয়েবসাইটের জন্য সাশ্রয়ী প্যাকেজ
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- ফ্রি প্যাকেজ -->
+            <div class="bg-gradient-to-r from-green-800 to-green-700 rounded-2xl p-8 hover-lift relative text-center text-white" data-aos="fade-up" data-aos-delay="100">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-gray-800 px-3 py-1 rounded-full text-sm font-bold">
+                    সম্পূর্ণ ফ্রি
+                </div>
+                <h3 class="text-3xl font-bold mb-4">ফ্রি সাবডোমেইন</h3>
+                <div class="text-6xl font-bold mb-2">৳০</div>
+                <p class="text-xl opacity-80 mb-8">লাইফটাইম ফ্রি</p>
+                <ul class="text-left space-y-4 mb-8 max-w-md mx-auto">
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> আপনার নামের Mia.bd ডোমেইন</li>
+                     <li><i class="fas fa-xmark text-yellow-400 mr-3"></i> স্মার্ট প্রোফাইল কার্ড</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> তাৎক্ষণিক সক্রিয়</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> সহজ ব্যবস্থাপনা</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> কোনো সেটআপ ফি নেই</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> কোনো মাসিক চার্জ নেই</li>
+                </ul>
+                <button class="bg-white text-green-800 py-4 px-8 rounded-full font-bold text-lg hover-lift w-full md:w-auto">
+                    <i class="fas fa-gift mr-2"></i>
+                    ফ্রি সাবডোমেইন নিন
+                </button>
+            </div>
+            
+            <!-- লাইফটাইম প্যাকেজ -->
+            <div class="bg-gradient-to-r from-red-700 to-red-600 rounded-2xl p-8 hover-lift relative text-center text-white" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-bold">
+                    একবারেই লাইফটাইম
+                </div>
+                <h3 class="text-3xl font-bold mb-4">লাইফটাইম প্যাকেজ</h3>
+                <div class="text-6xl font-bold mb-2">৳৩০০০</div>
+                <p class="text-xl opacity-80 mb-8">একবারেই লাইফটাইম ব্যবহার করতে পারবেন</p>
+                <ul class="text-left space-y-4 mb-8 max-w-md mx-auto">
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> স্মার্ট প্রোফাইল কার্ড</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> Mia.bd সাবডোমেইন</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> ফ্রি হোস্টিং (GitHub Pages)</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> ব্যক্তিগত ওয়েবসাইট ডিজাইন</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> কোনো বার্ষিক চার্জ নেই</li>
+                </ul>
+                <button class="bg-white text-red-700 py-4 px-8 rounded-full font-bold text-lg hover-lift w-full md:w-auto">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    লাইফটাইম নিন
+                </button>
+            </div>
+            
+            <!-- বার্ষিক প্যাকেজ -->
+            <div class="bg-gradient-to-r from-green-800 to-green-700 rounded-2xl p-8 hover-lift relative text-center text-white" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-200 text-red-700 px-3 py-1 rounded-full text-sm font-bold">
+                    বার্ষিক সেবা
+                </div>
+                <h3 class="text-3xl font-bold mb-4">বার্ষিক প্যাকেজ</h3>
+                <div class="text-6xl font-bold mb-2">৳১০০০</div>
+                <p class="text-xl opacity-80 mb-8">প্রতি বছর</p>
+                <ul class="text-left space-y-4 mb-8 max-w-md mx-auto">
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> স্মার্ট প্রোফাইল কার্ড</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> Mia.bd সাবডোমেইন</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> WordPress হোস্টিং (Hostinger)</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> আধুনিক ওয়েবসাইট ডিজাইন</li>
+                    <li><i class="fas fa-check text-yellow-400 mr-3"></i> পেশাদার সাপোর্ট</li>
+                </ul>
+                <button class="bg-white text-green-800 py-4 px-8 rounded-full font-bold text-lg hover-lift w-full md:w-auto">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    বার্ষিক প্যাকেজ নিন
+                </button>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+<!-- স্মার্ট প্রোফাইল কার্ড সেকশন -->
+<section id="smart-card" class="py-20 bg-gray-50 font-[SolaimanLipi]">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                <i class="fas fa-id-card text-red-700 mr-3"></i>
+                স্মার্ট প্রোফাইল কার্ড কী?
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                আপনার পরিচয়কে আধুনিকভাবে তুলে ধরার সবচেয়ে সহজ উপায় — একটি কার্ডে আপনার নাম, ওয়েবসাইট ও ডিজিটাল পরিচয়।
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- সুবিধা ১ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-user text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">ব্যক্তিগত পরিচয়</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    আপনার নামের সাথে Mia.bd ওয়েবসাইট যুক্ত হয়ে আপনাকে আলাদা করে তুলে ধরে।
+                </p>
+            </div>
+            
+            <!-- সুবিধা ২ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-gradient-to-r from-red-700 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-globe text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">ডিজিটাল উপস্থিতি</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    আপনার স্মার্ট কার্ডের সাথে ওয়েবসাইট যুক্ত হয়ে অনলাইনে আপনার পরিচয় তৈরি করে।
+                </p>
+            </div>
+            
+            <!-- সুবিধা ৩ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-bolt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">সহজ ও দ্রুত</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    কোনো জটিলতা ছাড়াই তাৎক্ষণিকভাবে সক্রিয় হয় এবং ব্যবহার করা যায়।
+                </p>
+            </div>
+            
+            <!-- সুবিধা ৪ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-gradient-to-r from-red-700 to-red-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-shield-alt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">নিরাপদ ও নির্ভরযোগ্য</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    আপনার তথ্য নিরাপদ থাকে এবং নির্ভরযোগ্য সাপোর্ট পাওয়া যায়।
+                </p>
+            </div>
+            
+            <!-- সুবিধা ৫ -->
+            <div class="bg-white rounded-xl p-8 shadow-lg hover-lift text-center" data-aos="fade-up" data-aos-delay="500">
+                <div class="bg-gradient-to-r from-green-800 to-green-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-users text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">সবার জন্য উপযোগী</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    নতুন ব্যবহারকারী থেকে শুরু করে পেশাদার — সবার জন্য সহজ ও কার্যকর।
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- ওয়েবসাইট ও সাবডোমেইন সেকশন -->
+<section id="website-subdomain" class="py-20 bg-gray-100 font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <!-- শিরোনাম -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                
+                ওয়েবসাইট ও কন্ট্রোল
+            </h2>
+            <p class="text-xl text-gray-600 max-w-4xl mx-auto">
+                Mia.bd আপনাকে দিচ্ছে একটি ফ্রি সাবডোমেইন এবং ব্যক্তিগত ওয়েবসাইট। 
+                আপনি পাবেন সম্পূর্ণ নিয়ন্ত্রণ, কাস্টমাইজেশন এবং আধুনিক ডিজিটাল পরিচয়।
+            </p>
+        </div>
+        
+        <!-- দুই কলামের কন্টেন্ট -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- বাম দিকের কন্টেন্ট -->
+            <div data-aos="fade-right">
+                <h3 class="text-2xl font-bold text-green-800 mb-4">কে পাবেন ওয়েবসাইট?</h3>
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    যাদের নামের শেষে <strong>Mia</strong> আছে, তারা পাবেন Mia.bd সাবডোমেইন এবং অন্যান্য সকল নামের সাথে উপযুক্ত ব্যক্তিগত ওয়েবসাইট। 
+                    এটি হবে আপনার ডিজিটাল পরিচয়, যা আপনি সহজেই ব্যবহার করতে পারবেন।
+                </p>
+                
+                <h3 class="text-2xl font-bold text-green-800 mb-4">ওয়েবসাইটে কী করা যাবে?</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li><i class="fas fa-check text-green-600 mr-2"></i> DNS নিয়ন্ত্রণ (A, CNAME, TXT রেকর্ড)</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i> GitHub Pages হোস্টিং — সম্পূর্ণ অ্যাকাউন্ট নিয়ন্ত্রণ</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i> WordPress হোস্টিং (Hostinger) — পূর্ণ অ্যাডমিন অ্যাক্সেস</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i> 100% কাস্টমাইজেশন — যেকোনো সময় আপডেট বা ডিলিট</li>
+                    <li><i class="fas fa-check text-green-600 mr-2"></i> ব্যক্তিগত পোর্টফোলিও, ব্লগ বা ব্যবসায়িক ওয়েবসাইট তৈরি</li>
+                </ul>
+            </div>
+            
+            <!-- ডান দিকের ভিজ্যুয়াল -->
+            <div class="grid grid-cols-2 gap-6" data-aos="fade-left">
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center hover-lift">
+                    <i class="fas fa-server text-green-700 text-4xl mb-4"></i>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">DNS নিয়ন্ত্রণ</h4>
+                    <p class="text-gray-600 text-sm">A, CNAME ও TXT রেকর্ড সহজেই ম্যানেজ করুন।</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center hover-lift">
+                    <i class="fab fa-github text-gray-800 text-4xl mb-4"></i>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">GitHub Pages</h4>
+                    <p class="text-gray-600 text-sm">ফ্রি হোস্টিং, সম্পূর্ণ অ্যাকাউন্ট নিয়ন্ত্রণ।</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center hover-lift">
+                    <i class="fab fa-wordpress text-blue-600 text-4xl mb-4"></i>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">WordPress Hosting</h4>
+                    <p class="text-gray-600 text-sm">Hostinger হোস্টিং, পূর্ণ অ্যাডমিন অ্যাক্সেস।</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center hover-lift">
+                    <i class="fas fa-pencil-alt text-red-600 text-4xl mb-4"></i>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">কাস্টমাইজেশন</h4>
+                    <p class="text-gray-600 text-sm">আপনার ওয়েবসাইট 100% কাস্টমাইজযোগ্য।</p>
                 </div>
             </div>
         </div>
-
-        <!-- Info -->
-        <div class="space-y-3 text-sm md:text-base" data-aos="fade-up" data-aos-delay="200">
-            <p>
-                🌐 Website:
-                <a href="https://mia.bd" class="text-bdred underline">mia.bd</a>
+        
+        <!-- অতিরিক্ত সুবিধা -->
+        <div class="mt-20 text-center" data-aos="fade-up">
+            <h3 class="text-2xl font-bold text-green-800 mb-4">আপনার ওয়েবসাইটের সুবিধা</h3>
+            <p class="text-gray-700 max-w-3xl mx-auto mb-8">
+                Mia.bd ওয়েবসাইটের মাধ্যমে আপনি পাবেন একটি আধুনিক ডিজিটাল পরিচয়। 
+                এটি হবে আপনার ব্যক্তিগত ব্র্যান্ড, যা আপনি নিজের মতো করে সাজাতে পারবেন।
             </p>
-            <p>
-                📧 Support:
-                <a href="mailto:info@mia.bd" class="text-bdred underline">info@mia.bd</a>
+            <div class="flex flex-wrap justify-center gap-6">
+                <span class="bg-green-100 text-green-800 px-6 py-3 rounded-full font-bold">ব্যক্তিগত পোর্টফোলিও</span>
+                <span class="bg-red-100 text-red-700 px-6 py-3 rounded-full font-bold">ব্লগ</span>
+                <span class="bg-green-100 text-green-800 px-6 py-3 rounded-full font-bold">ব্যবসায়িক ওয়েবসাইট</span>
+                <span class="bg-red-100 text-red-700 px-6 py-3 rounded-full font-bold">ডিজিটাল পরিচয়</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- রেডি-মেড ওয়েবসাইট টেমপ্লেট সেকশন -->
+<section id="templates" class="py-20 bg-white font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <!-- শিরোনাম -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                
+                রেডি-মেড ওয়েবসাইট টেমপ্লেট
+            </h2>
+            <p class="text-xl text-gray-600 max-w-4xl mx-auto">
+                আপনার Mia.bd ওয়েবসাইটের জন্য আমরা দিচ্ছি HTML ও WordPress এর রেডি-মেড টেমপ্লেট। 
+                সহজে ব্যবহার করুন, কাস্টমাইজ করুন এবং সাথে সাথে অনলাইনে চালু করুন।
             </p>
         </div>
-
-        <!-- Social / Footer -->
-        <div class="mt-8 flex justify-center space-x-6 text-xl" data-aos="fade-up" data-aos-delay="300">
-            <i class="fa-solid fa-globe hover:text-bdred transition"></i>
-            <i class="fa-solid fa-envelope hover:text-bdred transition"></i>
-            <i class="fa-brands fa-facebook hover:text-bdred transition"></i>
+        
+        <!-- HTML টেমপ্লেট -->
+        <div class="mb-16">
+            <h3 class="text-2xl font-bold text-green-800 mb-8 text-center">HTML টেমপ্লেট (GitHub Pages)</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- টেমপ্লেট ১ -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://via.placeholder.com/400x250" alt="Portfolio Template" class="rounded-lg mb-6 mx-auto">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">পোর্টফোলিও টেমপ্লেট</h4>
+                    <p class="text-gray-600 mb-6">ব্যক্তিগত প্রোফাইল ও কাজ প্রদর্শনের জন্য উপযোগী।</p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        ডেমো দেখুন
+                    </a>
+                </div>
+                
+                <!-- টেমপ্লেট ২ -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://via.placeholder.com/400x250" alt="Business Template" class="rounded-lg mb-6 mx-auto">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">বিজনেস টেমপ্লেট</h4>
+                    <p class="text-gray-600 mb-6">ছোট ব্যবসা বা দোকানের জন্য সহজ ওয়েবসাইট।</p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        ডেমো দেখুন
+                    </a>
+                </div>
+                
+                <!-- টেমপ্লেট ৩ -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://via.placeholder.com/400x250" alt="Blog Template" class="rounded-lg mb-6 mx-auto">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">ব্লগ টেমপ্লেট</h4>
+                    <p class="text-gray-600 mb-6">ব্যক্তিগত ব্লগ বা লেখালেখির জন্য উপযোগী।</p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        ডেমো দেখুন
+                    </a>
+                </div>
+            </div>
         </div>
+        
+        <!-- WordPress টেমপ্লেট -->
+        <div>
+            <h3 class="text-2xl font-bold text-green-800 mb-8 text-center">WordPress টেমপ্লেট (Astra Pro)</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Astra Pro টেমপ্লেট ১ -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://via.placeholder.com/400x250" alt="Astra Portfolio" class="rounded-lg mb-6 mx-auto">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">Astra Portfolio</h4>
+                    <p class="text-gray-600 mb-6">পেশাদার পোর্টফোলিও ওয়েবসাইটের জন্য।</p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        ডেমো দেখুন
+                    </a>
+                </div>
+                
+                <!-- Astra Pro টেমপ্লেট ২ -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://via.placeholder.com/400x250" alt="Astra Business" class="rounded-lg mb-6 mx-auto">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">Astra Business</h4>
+                    <p class="text-gray-600 mb-6">ব্যবসায়িক ওয়েবসাইটের জন্য আধুনিক ডিজাইন।</p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        ডেমো দেখুন
+                    </a>
+                </div>
+                
+                <!-- Astra Pro টেমপ্লেট ৩ -->
+                <div class="bg-gray-50 rounded-xl shadow-lg p-6 text-center hover-lift" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://via.placeholder.com/400x250" alt="Astra Blog" class="rounded-lg mb-6 mx-auto">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">Astra Blog</h4>
+                    <p class="text-gray-600 mb-6">ব্লগ বা কনটেন্ট ক্রিয়েটরদের জন্য।</p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        ডেমো দেখুন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <p class="mt-6 text-xs opacity-70">
-            © 2026 Mia.bd — All Rights Reserved
+
+
+<!-- কল টু অ্যাকশন সেকশন -->
+<section id="cta" class="py-20 bg-gradient-to-r from-green-800 to-red-700 font-[SolaimanLipi] text-white overflow-x-hidden">
+    <div class="container mx-auto px-6 text-center" data-aos="zoom-in">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            আজই আপনার স্মার্ট প্রোফাইল কার্ড ও ওয়েবসাইট নিন!
+        </h2>
+        <p class="text-xl max-w-3xl mx-auto mb-10 opacity-90">
+            Mia.bd আপনাকে দিচ্ছে একটি ফ্রি সাবডোমেইন এবং ব্যক্তিগত ওয়েবসাইট। 
+            আপনার নামকে অনলাইনে পরিচিত করুন এবং ডিজিটাল পরিচয় তৈরি করুন।
         </p>
+        
+        <div class="flex flex-wrap justify-center gap-6">
+            <a href="#pricing" class="bg-white text-green-800 py-4 px-8 rounded-full font-bold text-lg hover:bg-red-700 hover:text-white transition">
+                <i class="fas fa-credit-card mr-2"></i> প্যাকেজ দেখুন
+            </a>
+            <a href="#templates" class="bg-white text-red-700 py-4 px-8 rounded-full font-bold text-lg hover:bg-green-800 hover:text-white transition">
+                <i class="fas fa-laptop-code mr-2"></i> ডেমো টেমপ্লেট দেখুন
+            </a>
+            <a href="#features" class="bg-white text-black py-4 px-8 rounded-full font-bold text-lg hover:bg-green-800 hover:text-white transition">
+                <i class="fas fa-star mr-2"></i> সুবিধা জানুন
+            </a>
+        </div>
+    </div>
+</section>
 
+
+<!-- আমাদের সম্পর্কে সেকশন -->
+<section id="about" class="py-20 bg-gray-50 font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- লোগো অংশ -->
+            <div class="flex justify-center md:justify-start" data-aos="fade-right">
+                <img src="mia-cover.webp" alt="Mia.bd Logo" class="rounded-lg shadow-lg">
+            </div>
+            
+            <!-- টেক্সট অংশ -->
+            <div data-aos="fade-left">
+                <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                    আমাদের সম্পর্কে
+                </h2>
+                <p class="text-gray-700 leading-relaxed mb-6">
+                    Mia.bd একটি নতুন উদ্যোগ, যা বাংলাদেশের মানুষের জন্য তৈরি। 
+                    আমরা দিচ্ছি একটি ফ্রি সাবডোমেইন এবং স্মার্ট প্রোফাইল কার্ড, 
+                    যাতে আপনার নাম অনলাইনে পরিচিত হয় এবং আপনি পান একটি আধুনিক ডিজিটাল পরিচয়। 
+                    আমাদের লক্ষ্য হলো সহজ, সাশ্রয়ী এবং সবার জন্য উপযোগী ওয়েবসাইট সেবা প্রদান করা।
+                </p>
+                <a href="/about" class="bg-green-800 text-white py-4 px-8 rounded-full font-bold text-lg hover:bg-red-700 transition">
+                    বিস্তারিত জানুন
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- যোগাযোগ সেকশন -->
+<section id="contact" class="py-20 bg-gradient-to-r from-green-800 to-green-900 font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <!-- শিরোনাম -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                সাহায্য দরকার?
+            </h2>
+            <p class="text-xl text-white opacity-90 max-w-3xl mx-auto">
+                যেকোনো প্রশ্ন বা সহায়তার জন্য আমাদের সাপোর্ট টিমের সাথে যোগাযোগ করুন
+            </p>
+        </div>
+        
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12">
+                
+                <!-- যোগাযোগ ফর্ম -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold text-white mb-6">আমাদেরকে বার্তা পাঠান</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-4 top-4 text-gray-400"></i>
+                            <input type="text" placeholder="আপনার নাম" class="w-full pl-12 p-4 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-green-400" required>
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-4 top-4 text-gray-400"></i>
+                            <input type="email" placeholder="আপনার ইমেইল" class="w-full pl-12 p-4 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-green-400" required>
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-question-circle absolute left-4 top-4 text-gray-400"></i>
+                            <select class="w-full pl-12 p-4 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-green-400">
+                                <option>সাধারণ প্রশ্ন</option>
+                                <option>টেকনিক্যাল সাপোর্ট</option>
+                                <option>সাবডোমেইন সমস্যা</option>
+                                <option>হোস্টিং প্রশ্ন</option>
+                            </select>
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-comment-dots absolute left-4 top-4 text-gray-400"></i>
+                            <textarea placeholder="আপনার বার্তা লিখুন" rows="4" class="w-full pl-12 p-4 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-green-800 text-white py-4 rounded-lg font-bold text-lg hover:bg-red-700 transition">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            বার্তা পাঠান
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- যোগাযোগ তথ্য -->
+                <div class="space-y-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 flex items-center shadow-lg">
+                        <div class="bg-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-envelope text-green-800"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold">ইমেইল</h4>
+                            <p class="text-white opacity-80">support@mia.bd</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 flex items-center shadow-lg">
+                        <div class="bg-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-clock text-green-800"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold">রেসপন্স টাইম</h4>
+                            <p class="text-white opacity-80">২৪ ঘন্টার মধ্যে</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 flex items-center shadow-lg">
+                        <div class="bg-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-headset text-green-800"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold">সাপোর্ট</h4>
+                            <p class="text-white opacity-80">ফ্রি টেকনিক্যাল সাপোর্ট</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-xl p-6 shadow-lg">
+                        <h4 class="text-white font-bold mb-4">আমাদের সাথে যুক্ত থাকুন</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-green-800 transition">
+                                <i class="fab fa-facebook-f text-green-800"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-green-800 transition">
+                                <i class="fab fa-twitter text-green-800"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-green-800 transition">
+                                <i class="fab fa-linkedin-in text-green-800"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-green-800 transition">
+                                <i class="fab fa-github text-green-800"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- FAQs সেকশন -->
+<section id="faqs" class="py-20 bg-white font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <!-- শিরোনাম -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                <i class="fas fa-question-circle text-red-700 mr-3"></i>
+                সাধারণ প্রশ্নোত্তর (FAQs)
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Mia.bd সম্পর্কে আপনার সাধারণ প্রশ্নগুলোর উত্তর এখানে দেওয়া হলো।
+            </p>
+        </div>
+        
+        <!-- FAQ তালিকা -->
+        <div class="max-w-4xl mx-auto space-y-6">
+            
+            <!-- প্রশ্ন ১ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ১. Mia.bd কী?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    Mia.bd একটি ডিজিটাল পরিচয় প্ল্যাটফর্ম, যেখানে আপনি পাবেন একটি ফ্রি সাবডোমেইন এবং স্মার্ট প্রোফাইল কার্ড। 
+                    এর মাধ্যমে আপনার নাম অনলাইনে পরিচিত হবে।
+                </p>
+            </div>
+            
+            <!-- প্রশ্ন ২ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="200">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ২. কে Mia.bd সাবডোমেইন পাবে?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    যাদের নামের শেষে <strong>Mia</strong> আছে, তারা পাবেন Mia.bd সাবডোমেইন এবং ব্যক্তিগত ওয়েবসাইট।
+                </p>
+            </div>
+            
+            <!-- প্রশ্ন ৩ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="300">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ৩. সাবডোমেইন কি বিক্রি করা হয়?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    না, বাংলাদেশ ডোমেইন অথরিটি সাবডোমেইন বিক্রি নিষিদ্ধ করেছে। 
+                    আমরা সাবডোমেইন ফ্রি দিচ্ছি, তবে স্মার্ট প্রোফাইল কার্ড এবং ওয়েবসাইট সেবার মাধ্যমে ব্যবসা করছি।
+                </p>
+            </div>
+            
+            <!-- প্রশ্ন ৪ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="400">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ৪. ওয়েবসাইটে কী ধরনের নিয়ন্ত্রণ থাকবে?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    সাবডোমেইনের জন্য DNS নিয়ন্ত্রণ থাকবে (A, CNAME, TXT রেকর্ড)। 
+                    GitHub Pages হোস্টিংয়ে সম্পূর্ণ অ্যাকাউন্ট নিয়ন্ত্রণ থাকবে এবং WordPress হোস্টিংয়ে পূর্ণ অ্যাডমিন অ্যাক্সেস দেওয়া হবে।
+                </p>
+            </div>
+            
+            <!-- প্রশ্ন ৫ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="500">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ৫. স্মার্ট প্রোফাইল কার্ড কী?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    স্মার্ট প্রোফাইল কার্ড হলো একটি আধুনিক পরিচয় কার্ড, যেখানে আপনার নাম, ওয়েবসাইট এবং ডিজিটাল তথ্য থাকবে। 
+                    এটি আপনার ব্যক্তিগত ব্র্যান্ডকে অনলাইনে তুলে ধরে।
+                </p>
+            </div>
+            
+            <!-- প্রশ্ন ৬ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="600">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ৬. Mia.bd ওয়েবসাইট কি কাস্টমাইজ করা যাবে?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    হ্যাঁ, ওয়েবসাইট 100% কাস্টমাইজযোগ্য। 
+                    আপনি যেকোনো সময় কনটেন্ট আপডেট, পরিবর্তন বা ডিলিট করতে পারবেন।
+                </p>
+            </div>
+            
+            <!-- প্রশ্ন ৭ -->
+            <div class="bg-gray-50 rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="700">
+                <button class="w-full text-left font-bold text-lg text-green-800 focus:outline-none">
+                    ৭. Mia.bd এর প্যাকেজগুলো কীভাবে কাজ করে?
+                </button>
+                <p class="text-gray-700 mt-3">
+                    আমরা তিনটি প্যাকেজ দিচ্ছি: ফ্রি সাবডোমেইন, লাইফটাইম প্যাকেজ (৳৩০০০ একবারেই), এবং বার্ষিক প্যাকেজ (৳১০০০ প্রতি বছর)। 
+                    লাইফটাইম প্যাকেজে GitHub Pages হোস্টিং থাকবে এবং বার্ষিক প্যাকেজে WordPress হোস্টিং থাকবে।
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ব্লগ ও আর্টিকেল সেকশন -->
+<section id="blog" class="py-20 bg-gray-50 font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <!-- শিরোনাম -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-800 mb-6">
+                
+                আমাদের ব্লগ ও আর্টিকেল
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Mia.bd এর সর্বশেষ খবর, টিপস এবং আর্টিকেল পড়ুন। 
+                এখানে পাবেন ডিজিটাল পরিচয়, ওয়েবসাইট এবং প্রযুক্তি নিয়ে গুরুত্বপূর্ণ তথ্য।
+            </p>
+        </div>
+        
+        <!-- ব্লগ পোস্ট গ্রিড -->
+        <div class="grid md:grid-cols-3 gap-8">
+            
+            <!-- পোস্ট ১ -->
+            <div class="bg-white rounded-xl shadow-lg hover-lift overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <img src="mia-cover.webp" alt="Blog Post 1" class="w-full h-56 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">স্মার্ট প্রোফাইল কার্ড কেন দরকার?</h3>
+                    <p class="text-gray-600 mb-6">
+                        আপনার নামকে অনলাইনে পরিচিত করার সবচেয়ে সহজ উপায় হলো স্মার্ট প্রোফাইল কার্ড। 
+                        জানুন এর সুবিধা ও ব্যবহার।
+                    </p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        বিস্তারিত পড়ুন
+                    </a>
+                </div>
+            </div>
+            
+            <!-- পোস্ট ২ -->
+            <div class="bg-white rounded-xl shadow-lg hover-lift overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <img src="mia-cover.webp" alt="Blog Post 2" class="w-full h-56 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">GitHub Pages দিয়ে ফ্রি ওয়েবসাইট</h3>
+                    <p class="text-gray-600 mb-6">
+                        GitHub Pages ব্যবহার করে কিভাবে ফ্রি ওয়েবসাইট তৈরি করবেন এবং Mia.bd সাবডোমেইন যুক্ত করবেন।
+                    </p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        বিস্তারিত পড়ুন
+                    </a>
+                </div>
+            </div>
+            
+            <!-- পোস্ট ৩ -->
+            <div class="bg-white rounded-xl shadow-lg hover-lift overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                <img src="mia-cover.webp" alt="Blog Post 3" class="w-full h-56 object-cover">
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">WordPress Hosting এর সুবিধা</h3>
+                    <p class="text-gray-600 mb-6">
+                        Hostinger WordPress Hosting এর মাধ্যমে আপনার ওয়েবসাইট আরও শক্তিশালী ও সহজে ব্যবস্থাপনা করুন।
+                    </p>
+                    <a href="#" class="bg-green-800 text-white py-3 px-6 rounded-full font-bold hover:bg-red-700 transition">
+                        বিস্তারিত পড়ুন
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- আরও পোস্ট দেখুন -->
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="#archive" class="bg-red-700 text-white py-4 px-10 rounded-full font-bold text-lg hover:bg-green-800 transition">
+                সব পোস্ট দেখুন
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- Order Section -->
+    <section id="order" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-shopping-cart text-primary mr-3"></i>
+                    Order Your Free Subdomain
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Get started in minutes with your free subdomain
+                </p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl px-4 py-6 shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <form id="subdomainForm" class="space-y-6">
+          <div>
+          <label class="block text-gray-700 text-lg font-semibold mb-3">
+          Choose Your Subdomain
+          </label>
+          <div class="flex items-center bg-gray-50 rounded-lg border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500">
+          <input 
+          type="text" 
+          id="subdomainName" 
+          placeholder="yourname" 
+          class="w-4/6 text-lg font-medium bg-transparent border-none px-4 py-3 focus:outline-none"
+          required
+          >
+          <span class="w-2/6 text-center text-lg font-semibold text-gray-600 border-l border-gray-300 py-3">
+          .mia.bd
+          </span>
+          </div>
+          <p class="text-sm text-gray-500 mt-2">
+          Enter your desired subdomain name (letters, numbers, and hyphens only)
+          </p>
+          </div>
+          
+                   
+                        
+                        <div>
+                            <label class="block text-gray-700 text-lg font-semibold mb-3">Your Email</label>
+                            <input type="email" id="userEmail" placeholder="your@email.com" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 text-lg font-semibold mb-3">Hosting Type</label>
+                            <select id="hostingType" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                                                 <option value="github page Hosting">আমি GitHub Page হোস্টিং চাই</option>
+                                <option value="custom">I have my own hosting</option>
+                                <option value="WordPress">I want to use with WordPress</option>
+
+                            </select>
+                        </div>
+                        
+                        <div id="customHostingDetails" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Your Server IP or CNAME</label>
+                                <input type="text" id="hostingTarget" placeholder="123.456.789.0 or yourdomain.com" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                                <p class="text-sm text-gray-500 mt-1">Enter your server IP address or CNAME target</p>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full primary-gradient text-white py-4 rounded-lg font-bold text-lg hover-lift pulse-glow">
+                            <i class="fas fa-rocket mr-2"></i>
+                            Create My Free Subdomain
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+<!-- ফুটার -->
+<footer class="bg-green-900 text-white py-12 font-[SolaimanLipi] overflow-x-hidden">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-8">
+            
+            <!-- লোগো ও পরিচিতি -->
+            <div>
+                <div class="text-2xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-globe mr-3 text-green-100"></i>
+                    MIA.BD
+                </div>
+                <p class="text-gray-400 leading-relaxed">
+                    বাংলাদেশের মানুষের জন্য তৈরি একটি ডিজিটাল পরিচয় প্ল্যাটফর্ম। 
+                    ফ্রি সাবডোমেইন, স্মার্ট প্রোফাইল কার্ড এবং ওয়েবসাইট সেবা দিয়ে আপনার নামকে অনলাইনে পরিচিত করুন।
+                </p>
+            </div>
+            
+            <!-- সেবা -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">সেবা</h4>
+                <ul class="space-y-2">
+                    <li><a href="#features" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-star mr-2"></i>সুবিধাসমূহ</a></li>
+                    <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-tags mr-2"></i>প্রাইসিং প্যাকেজ</a></li>
+                    <li><a href="#templates" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-laptop-code mr-2"></i>রেডি-মেড টেমপ্লেট</a></li>
+                    <li><a href="#smart-card" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-id-card mr-2"></i>স্মার্ট প্রোফাইল কার্ড</a></li>
+                </ul>
+            </div>
+            
+            <!-- সাপোর্ট -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">সাপোর্ট</h4>
+                <ul class="space-y-2">
+                    <li><a href="#faqs" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-question mr-2"></i>প্রশ্নোত্তর</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-envelope mr-2"></i>যোগাযোগ করুন</a></li>
+                    <li><a href="#blog" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-blog mr-2"></i>ব্লগ ও আর্টিকেল</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-info-circle mr-2"></i>আমাদের সম্পর্কে</a></li>
+                </ul>
+            </div>
+            
+            <!-- আইনগত তথ্য -->
+            <div>
+                <h4 class="text-lg font-bold mb-4">আইনগত তথ্য</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-shield-alt mr-2"></i>প্রাইভেসি পলিসি</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-file-contract mr-2"></i>টার্মস অফ সার্ভিস</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-cookie mr-2"></i>কুকি পলিসি</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- কপিরাইট -->
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+            <p class="text-gray-400">
+                © ২০২৬ MIA.BD. সর্বস্বত্ব সংরক্ষিত। | আপনার ডিজিটাল পরিচয়ের নতুন ঠিকানা।  | ওয়েবসাইট ডিজাইনের Arman Mia ( arman.mia.bd )
+            </p>
+        </div>
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl p-8 max-w-md w-full transform scale-0 transition-transform duration-300" id="modalContent">
+                <div class="text-center">
+                    <div class="success-gradient w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-check text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Congratulations! </h3>
+                    <p class="text-gray-600 mb-6">
+                        Your free subdomain has been created successfully.
+                        <br>
+                    <br> আপনি WhatsApp এ মেসেজ করতে হবে। আমাদের এজেন্ট আপনার ওয়েবসাইট সেটাপ করতে সহযোগিতা করবেন। 
+                    </p>
+                   
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover-lift" id="closeModal">
+                        <i class="fa-brands fa-whatsapp mr-2"></i>
+                        WhatsApp Help
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Countdown Script -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    
     <script>
-        function updateCountdown() {
-            const launchDate = new Date("February 14, 2026 00:00:00").getTime();
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+        $(document).ready(function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
 
-            if (distance < 0) return;
+            // Smooth scrolling for navigation links
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if( target.length ) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 80
+                    }, 1000);
+                }
+            });
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Navigation background change on scroll
+            $(window).on('scroll', function() {
+                if ($(window).scrollTop() > 100) {
+                    $('nav').addClass('shadow-xl');
+                } else {
+                    $('nav').removeClass('shadow-xl');
+                }
+            });
 
-            $("#days").text(days);
-            $("#hours").text(hours);
-            $("#minutes").text(minutes);
-            $("#seconds").text(seconds);
-        }
+            // Modal functionality
+            function openModal() {
+                $('#successModal').removeClass('hidden');
+                setTimeout(function() {
+                    $('#modalContent').removeClass('scale-0').addClass('scale-100');
+                }, 10);
+            }
 
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
+            function closeModal() {
+                $('#modalContent').removeClass('scale-100').addClass('scale-0');
+                setTimeout(function() {
+                    $('#successModal').addClass('hidden');
+                }, 300);
+            }
 
-    <!-- AOS Init -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true
+            // Hosting type change handler
+            $('#hostingType').on('change', function() {
+                const hostingType = $(this).val();
+                const customDetails = $('#customHostingDetails');
+                const hostingTarget = $('#hostingTarget');
+                
+                if (hostingType === 'custom') {
+                    customDetails.show();
+                    hostingTarget.attr('placeholder', '123.456.789.0 or yourdomain.com');
+                    hostingTarget.prev('label').text('Your Server IP or CNAME');
+                } else if (hostingType === 'blogger') {
+                    customDetails.show();
+                    hostingTarget.attr('placeholder', 'ghs.google.com');
+                    hostingTarget.prev('label').text('Blogger CNAME (usually ghs.google.com)');
+                    hostingTarget.val('ghs.google.com');
+                } else {
+                    customDetails.hide();
+                }
+            });
+
+
+
+
+
+// Subdomain form submission
+let whatsappFormData = null;
+
+$('#subdomainForm').on('submit', function (e) {
+    e.preventDefault();
+
+    const subdomainName = $('#subdomainName').val().toLowerCase().trim();
+    const userEmail = $('#userEmail').val();
+    const hostingType = $('#hostingType').val();
+    const hostingTarget = $('#hostingTarget').val() || 'github page';
+    
+
+    // Validate subdomain name
+    if (!/^[a-z0-9-]+$/.test(subdomainName)) {
+        alert('Subdomain name can only contain letters, numbers, and hyphens.');
+        return;
+    }
+
+    if (subdomainName.length < 3) {
+        alert('Subdomain name must be at least 3 characters long.');
+        return;
+    }
+
+    const formData = {
+        subdomain: subdomainName,
+        email: userEmail,
+        hosting_type: hostingType,
+        hosting_target: hostingTarget,
+        full_domain: subdomainName + '.mia.bd'
+    };
+
+    // Save data for WhatsApp button
+    whatsappFormData = formData;
+
+    // Show loading state
+    const submitBtn = $(this).find('button[type="submit"]');
+    const originalText = submitBtn.html();
+    submitBtn.html('<i class="fas fa-spinner fa-spin mr-2"></i>Creating Subdomain...');
+    submitBtn.prop('disabled', true);
+
+    // Simulate Ajax call
+    setTimeout(function () {
+        openModal();
+        $('#subdomainForm')[0].reset();
+        $('#customHostingDetails').hide();
+        submitBtn.html(originalText);
+        submitBtn.prop('disabled', false);
+
+        console.log('Subdomain created:', formData);
+    }, 2000);
+});
+
+// WhatsApp Help button click
+$(document).on('click', '#closeModal', function () {
+    if (!whatsappFormData) {
+        alert('No submission data found.');
+        return;
+    }
+
+    const message = `As-salamu Alaykum – New Subdomain Request
+
+Subdomain: ${whatsappFormData.full_domain}
+Email: ${whatsappFormData.email}
+Hosting Type: ${whatsappFormData.hosting_type}
+Hosting Target: ${whatsappFormData.hosting_target}
+    `.trim();
+
+    const whatsappNumber = '8801974946747';
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappURL, '_blank');
+});
+
+
+
+            // Contact form submission
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = $(this).find('button[type="submit"]');
+                const originalText = submitBtn.html();
+                submitBtn.html('<i class="fas fa-spinner fa-spin mr-2"></i>Sending...');
+                
+                setTimeout(function() {
+                    alert('Message sent successfully! We will get back to you within 24 hours.');
+                    $('#contactForm')[0].reset();
+                    submitBtn.html(originalText);
+                }, 1500);
+            });
+
+            // Get Started button clicks
+            $('#getStartedBtn, #heroOrderBtn, #pricingOrderBtn').on('click', function() {
+                $('html, body').animate({
+                    scrollTop: $('#order').offset().top - 80
+                }, 1000);
+            });
+
+            // Features button click
+            $('#heroFeaturesBtn').on('click', function() {
+                $('html, body').animate({
+                    scrollTop: $('#features').offset().top - 80
+                }, 1000);
+            });
+
+            // Close modal
+            $('#closeModal').on('click', closeModal);
+
+            // Close modal when clicking outside
+            $('#successModal').on('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            // Real-time subdomain preview
+            $('#subdomainName').on('input', function() {
+                let value = $(this).val().toLowerCase().replace(/[^a-z0-9-]/g, '');
+                $(this).val(value);
+            });
+
+            // Add hover effects to cards
+            $('.hover-lift').on('mouseenter', function() {
+                $(this).addClass('shadow-2xl');
+            }).on('mouseleave', function() {
+                $(this).removeClass('shadow-2xl');
+            });
+
+            // Initialize with custom hosting details hidden
+            $('#customHostingDetails').hide();
+
+            // Console log for demo
+            console.log('mia.bd subdomain system loaded successfully!');
+            console.log('Features: Free subdomains, instant activation, any hosting support');
         });
     </script>
-
 </body>
 </html>
